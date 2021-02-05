@@ -15,7 +15,9 @@ const newGame = () => {
 
             }
             currentPlayerSymbol = "x";
+            squareArr = ["", "", "", "", "", "", "", "", ""];
             gameStatus = "";
+            button.disabled = true;
         })
     }
 }
@@ -67,7 +69,12 @@ const checkGameStatus = () => {
     if (gameStatus !== '') {
         document
             .getElementById('game-status')
-            .innerHTML = `Winner: ${gameStatus.toUpperCase()}`
+            .innerHTML = `Winner: ${gameStatus.toUpperCase()}`;
+
+        document
+            .getElementById("new-game")
+            .disabled = false;
+
     }
     newGame();
 };
