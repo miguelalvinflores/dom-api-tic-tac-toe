@@ -2,6 +2,24 @@ let currentPlayerSymbol = "x";
 let squareArr = ["", "", "", "", "", "", "", "", ""];
 gameStatus = "";
 
+const newGame = () => {
+    button = document.getElementById("new-game");
+    if (gameStatus !== '') {
+        button.addEventListener("click", (event) => {
+            document
+                .getElementById('game-status')
+                .innerHTML = '';
+            for (i = 0; i < 9; i++) {
+                let div = document.getElementById(`square-${i}`);
+                div.innerHTML = '';
+
+            }
+            currentPlayerSymbol = "x";
+            gameStatus = "";
+        })
+    }
+}
+
 const checkGameStatus = () => {
 // Check rows
     for (let i = 0; i < 9; i +=3) {
@@ -51,6 +69,7 @@ const checkGameStatus = () => {
             .getElementById('game-status')
             .innerHTML = `Winner: ${gameStatus.toUpperCase()}`
     }
+    newGame();
 };
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -76,5 +95,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
       currentPlayerSymbol = "x";
     }
     checkGameStatus();
-  });
+    }
+  );
 });
