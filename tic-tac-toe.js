@@ -2,6 +2,22 @@ let currentPlayerSymbol = "x";
 let squareArr = ["", "", "", "", "", "", "", "", ""];
 gameStatus = "";
 
+const saveGame = () => {
+  localStorage.setItem("saveState", JSON.stringify(squareArr));
+};
+const loadGame = () => {
+  let loadState = JSON.parse(localStorage.getItem("saveState"));
+  squareArr = loadState;
+  squareArr.forEach((ele, i) => {
+    if (ele) {
+      const img = document.createElement("img");
+      img.src = `https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-${ele}.svg`;
+      let div = document.getElementById(`square-${i}`);
+      div.appendChild(img);
+    }
+  });
+  checkGameStatus();
+};
 const newGame = () => {
   let newButton = document.getElementById("new-game");
   if (gameStatus !== "") {
@@ -16,6 +32,7 @@ const newGame = () => {
       gameStatus = "";
       newButton.disabled = true;
       document.getElementById("give-up").disabled = false;
+      saveGame();
     });
   }
 };
@@ -37,6 +54,7 @@ const giveUp = () => {
     button.disabled = true;
     document.getElementById("new-game").disabled = false;
     newGame();
+    saveGame();
   });
 };
 
@@ -104,7 +122,7 @@ const checkGameStatus = () => {
 
 window.addEventListener("DOMContentLoaded", (event) => {
   const board = document.getElementById("tic-tac-toe-board");
-
+  loadGame();
   board.addEventListener("click", (event) => {
     const targetId = event.target.id;
 
@@ -124,6 +142,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     } else {
       currentPlayerSymbol = "x";
     }
+    saveGame();
     checkGameStatus();
     giveUp();
   });
