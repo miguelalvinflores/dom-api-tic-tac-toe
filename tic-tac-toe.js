@@ -3,7 +3,54 @@ let squareArr = ["", "", "", "", "", "", "", "", ""];
 gameStatus = "";
 
 const checkGameStatus = () => {
-  let;
+// Check rows
+    for (let i = 0; i < 9; i +=3) {
+        if(squareArr[i] !== ''
+        && squareArr[i] === squareArr[i + 1]
+        && squareArr[i] === squareArr[i + 2]) {
+            gameStatus = squareArr[i];
+            break;
+        }
+    }
+// Check columns
+    for (let i = 0; i < 3; i++) {
+        if(squareArr[i] !== ''
+        && squareArr[i] === squareArr[i + 3]
+        && squareArr[i] === squareArr[i + 6]) {
+            gameStatus = squareArr[i];
+            break;
+        }
+    }
+
+//Check diagonals
+    if (squareArr[0] !== ''
+    && squareArr[0] === squareArr[4]
+    && squareArr[0] === squareArr[8]) {
+        gameStatus = squareArr[0];
+    }
+    if (squareArr[2] !== ''
+    && squareArr[2] === squareArr[4]
+    && squareArr[2] === squareArr[6]) {
+        gameStatus = squareArr[2];
+    }
+// Check for a tie
+    let boardIsFilled = true;
+    for (let i = 0; i < 9; i++) {
+        if (squareArr[i] === '') {
+            boardIsFilled = false;
+            break;
+        }
+    }
+
+    if(boardIsFilled) {
+        gameStatus = 'None'
+    }
+
+    if (gameStatus !== '') {
+        document
+            .getElementById('game-status')
+            .innerHTML = `Winner: ${gameStatus.toUpperCase()}`
+    }
 };
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -28,5 +75,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
     } else {
       currentPlayerSymbol = "x";
     }
+    checkGameStatus();
   });
 });
