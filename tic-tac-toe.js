@@ -7,16 +7,19 @@ const saveGame = () => {
 };
 const loadGame = () => {
   let loadState = JSON.parse(localStorage.getItem("saveState"));
-  squareArr = loadState;
-  squareArr.forEach((ele, i) => {
-    if (ele) {
-      const img = document.createElement("img");
-      img.src = `https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-${ele}.svg`;
-      let div = document.getElementById(`square-${i}`);
-      div.appendChild(img);
-    }
-  });
-  checkGameStatus();
+  if(loadState) {
+    squareArr = loadState;
+    squareArr.forEach((ele, i) => {
+      if (ele) {
+        const img = document.createElement("img");
+        img.src = `https://assets.aaonline.io/Module-DOM-API/formative-project-tic-tac-toe/player-${ele}.svg`;
+        let div = document.getElementById(`square-${i}`);
+        div.appendChild(img);
+      }
+    });
+    checkGameStatus();
+  }
+
 };
 const newGame = () => {
   let newButton = document.getElementById("new-game");
@@ -106,7 +109,7 @@ const checkGameStatus = () => {
     }
   }
 
-  if (boardIsFilled) {
+  if (boardIsFilled && gameStatus === '') {
     gameStatus = "None";
   }
 
